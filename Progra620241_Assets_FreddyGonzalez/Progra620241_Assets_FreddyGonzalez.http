@@ -1,0 +1,6 @@
+@Progra620241_Assets_FreddyGonzalez_HostAddress = http://localhost:5183
+
+GET {{Progra620241_Assets_FreddyGonzalez_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
