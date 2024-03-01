@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Progra620241_Assets_FreddyGonzalez.Models;
+using Progra620241_Assets_FreddyGonzalez.Attributes;
 
 namespace Progra620241_Assets_FreddyGonzalez.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class UserRolesController : ControllerBase
     {
         private readonly Progra620241Context _context;
