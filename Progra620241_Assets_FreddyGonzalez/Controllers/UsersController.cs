@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Progra620241_Assets_FreddyGonzalez.Models;
+using Progra620241_Assets_FreddyGonzalez.ModelsDTOs;
 
 namespace Progra620241_Assets_FreddyGonzalez.Controllers
 {
@@ -39,6 +40,51 @@ namespace Progra620241_Assets_FreddyGonzalez.Controllers
             }
 
             return user;
+        }
+
+        // GET: api/Users/GetUserData?pUserName=algo
+        [HttpGet("GetUserData")]
+        public ActionResult<IEnumerable<UserDTO>> GetUserData(string pUserName) {
+            //custom andrey
+            var query = ( from us in _context.Users
+                          join ur in _context.UserRoles on us.UserRoleId equals ur.UserRoleId
+                          where us.UserName == pUserName && us.Active == true
+                          select new {
+                              idusuario = us.UserId,
+                              cedula = us.CardId,
+                              nombre = us.FirstName,
+                              apellidos = us.LastName,
+                              telefono = us.PhoneNumber,
+                              direccion = us.Address,
+                              correo = us.UserName,
+                              activo = us.Active,
+                              idrol = ur.UserRoleId,
+                              rol = ur.UserRoleDescription
+                          }
+                ).ToList();
+
+            List<UserDTO> listausuarios = new List<UserDTO>();
+            foreach ( var item in query ) {
+                UserDTO newUser = new UserDTO() {
+                    CodigoUsuario = item.idusuario,
+                    Cedula = item.cedula,
+                    Nombre = item.nombre,
+                    Apellidos = item.apellidos,
+                    Telefono = item.telefono,
+                    Direccion = item.direccion,
+                    Correo = item.correo,
+                    Activo = item.activo,
+                    CodigoDeRol = item.idrol,
+                    RolDeUsuario = item.rol,
+                    NotasDelUsuario = "No hay comentarios"
+                };
+                listausuarios.Add( newUser );
+            }
+
+            if (listausuarios == null || listausuarios.Count() == 0) {
+                return NotFound();
+            }
+            return listausuarios;
         }
 
         // PUT: api/Users/5
