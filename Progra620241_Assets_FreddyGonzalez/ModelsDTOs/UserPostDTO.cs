@@ -1,6 +1,5 @@
 ﻿namespace Progra620241_Assets_FreddyGonzalez.ModelsDTOs {
     public class UserPostDTO {
-        public int CodigoUsuario { get; set; }
 
         public string Cedula { get; set; } = null!;
 
@@ -14,12 +13,8 @@
 
         public string Correo { get; set; } = null!;
 
-        public string Contrannia { get; set; } = null!;
-
-        public bool? Activo { get; set; }
+        public string Contrasennia { get; set; } = null!;
 
         public int CodigoDeRol { get; set; }
-
-        public string? RolDeUsuario { get; set; }
     }
 }
